@@ -1,0 +1,66 @@
+main
+package trap;
+
+public class main {
+   public static void main(String[] args) {
+	   
+	   //instancio la clase
+	   
+	   celular objCelular = new celular();
+	   //texto xd
+	   System.out.println("gamemode survival");
+	   
+	   
+	   
+	   //metodos
+	   objCelular.ola();	
+	   objCelular.llamar("juan4");
+	   objCelular.cortarLlamada();
+   }
+}
+
+celular
+
+
+package trap;
+
+public class celular {
+	public class Celular {
+        //atributos de la clase
+	private String marca;
+	private String modelo;
+	private String color;
+	
+	
+	// constructor con parámetros
+	public Celular(String marca, String modelo, String color) {
+		this.marca = marca;
+		this.modelo = modelo;
+		this.color = color;
+	}
+	public Celular() {} 
+	}
+	public void ola()
+	
+	{
+		System.out.println("testear");
+	}
+	 
+		// método hacer llamada
+		public void llamar(String nombre){
+			System.out.println("LLamando a "+nombre);
+		}
+		//método finalizar llamada
+		public void cortarLlamada(){
+			System.out.println("Llamada finalizada");
+		}
+		//método para informar de la características del celular
+		 
+		public void informarCaracteristicas(){
+			System.out.println(String.format("Celular Marca: %s", marca));
+			System.out.println(String.format("Celular  Modelo: %s", modelo));
+			System.out.println(String.format("Celular Color: %s", color));		
+		}
+
+		
+}
