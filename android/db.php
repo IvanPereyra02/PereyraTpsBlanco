@@ -1,9 +1,5 @@
 <?php
 
-$mysql = new mysqli("localhost", "root", "", "androiduser");
+$mysql = mysqli_connect("localhost", "root", "", "androidusers");
+?>
 
-if ($mysql->connect_error) {
-  die("fallo la conexion");
-} else {
-  echo "conexion satisfactoria";
-}

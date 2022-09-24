@@ -1,19 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
 <?php
+include("db.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-  require_once('db.php');
-  $id = $_GET['id'];
 
-  $query = "SELECT * FROM registros WHERE id='$id'";
-  $result = $mysql->query($query);
-  if ($mysql->affected_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-      $array = $row;
-    }
-    echo json_encode($array);
-  } else {
-    echo "no se encontro nada";
-  }
-  $result->close();
-  $mysql->close();
+if(trim("boton")){
+
+$id = $_POST["id"];
+$consulta =  "SELECT * FROM 'registros' WHERE 'id' = '$id'";
+$res = mysqli_query($mysql,$consulta);
 }
+?>
+
+<table>
+  <thead>
+  <th>Nombre</th>  
+  <th>Email</th>
+  <th>Fecha alta</th>
+  <th>Fecha Modif</th>
+  </thead>
+  <tbody>
+    <?php while($row = $res->fetch_assoc()){?>
+     <tr>
+        <td><?php echo $row['usuario']?></td>      
+     </tr>
+
+    <?php }?>
+  </tbody>
+
+</table>
+</body>
+</html>
+
+
+
+
