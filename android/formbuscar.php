@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +10,7 @@
 </head>
 <body>
     <form method="post">
-        <input type="text" name="id" placeholder="ID">
+        <input type="text" name="id" placeholder="ID" value="<?php if(isset($_POST['id'] ))echo $_POST['id'] ?>">
         <input type="submit" name="boton">
 
 

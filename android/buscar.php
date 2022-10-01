@@ -11,14 +11,13 @@
 include("db.php");
 
 
-if(trim("boton")){
+if(trim("boton")){}
 
-$id = $_POST["id"];
-$consulta =  "SELECT * FROM 'registros' WHERE 'id' = '$id'";
-$res = mysqli_query($mysql,$consulta);
-}
+if(isset($_POST['id'])) {
+  $id = $_POST["id"];
+  $consulta =  "SELECT * FROM `usuarios` WHERE id = '$id' ";
+  $res = mysqli_query($mysql,$consulta);
 ?>
-
 <table>
   <thead>
   <th>Nombre</th>  
@@ -27,9 +26,14 @@ $res = mysqli_query($mysql,$consulta);
   <th>Fecha Modif</th>
   </thead>
   <tbody>
-    <?php while($row = $res->fetch_assoc()){?>
+    <?php while($row = $res -> fetch_assoc()){?>
      <tr>
-        <td><?php echo $row['usuario']?></td>      
+        <td><?php echo $row['usuarios']?></td>   
+        <td><?php echo $row['Email']?></td>     
+        <td><?php echo $row['created_at']?></td>     
+        <td><?php echo $row['updated_at']?></td>     
+
+
      </tr>
 
     <?php }?>
@@ -38,7 +42,4 @@ $res = mysqli_query($mysql,$consulta);
 </table>
 </body>
 </html>
-
-
-
-
+<?php }?>

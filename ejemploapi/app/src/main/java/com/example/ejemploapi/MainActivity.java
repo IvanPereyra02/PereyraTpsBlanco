@@ -1,6 +1,15 @@
 package com.example.ejemploapi;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.nfc.Tag;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -9,47 +18,79 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class Buscar extends AppCompatActivity {
+    private RequestQueue mRequestQueue;
+    private StringRequest mStringRequest;
 
+    private String url = "http://192.168.137.1/androidusers/buscar.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button messi  = (Button) findViewById(R.id.buscar);
-        Intent diego = new Intent(this,buscar.class);
-        private RequestQueue mRequestQueue;
-        private StringRequest mStringRequest;
+        setContentView(R.layout.activity_buscar);
+
+        Intent primero01 = new Intent(this, MainActivity.class);
 
 
-        private String url = "http://192.168.137.1/androidusers/buscar.php";
+        EditText MostrarNombre = (EditText) findViewById(R.id.MostrarNombre);
 
-        messi.setOnClickListener(new View.OnClickListener() {
+        EditText MostrarMail = (EditText) findViewById(R.id.MostrarMail);
+
+        EditText MostrarFechaCreacion = (EditText) findViewById(R.id.MostrarFecha);
+        EditText BuscarID = (EditText) findViewById(R.id.MostrarNombre);
+        Button Buscar = (Button) findViewById(R.id.Busco);
+        Button Regresar = (Button) findViewById(R.id.Regresar);
+
+        Buscar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            { startActivity(diego);
-
+            public void onClick(View view) {
+                sendAndRequestResponse();
             }
         });
-        private void sendAndRequestResponse(){
-            mRequestQueue = Volley.newRequestQueue(this)
-            .Toast.makeText(, "", Toast.LENGTH_SHORT).show();
-        }
-        private void onErrorResponse(VolleyError error){
-            Log.e(TAG,"ERROR:"+ error.toString());
 
-        }
-    })
-    {
-        @Override
-                protected Map<String,String>getParams(){
+        Regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(primero01);
+            }
+        });
 
     }
+    private void sendAndRequestResponse(){
+        mRequestQueue = Volley.newRequestQueue(this);
+
+        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("HttpClient", "succes!response: " + response.toString());
+                //Toast,makeText(getApplicationContext(),"Response")
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG,"ERROR: " + error.toString());
+            }
+        })
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String,String>();
+                params.put ("id","25");
+
+                return params;
+            }
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError{
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+
+        mRequestQueue.add(mStringRequest);
     }
-
-
 }
+
